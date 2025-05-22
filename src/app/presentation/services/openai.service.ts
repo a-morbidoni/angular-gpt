@@ -1,28 +1,32 @@
 import { Injectable } from '@angular/core';
-import { orthographyUseCase, prosConsStreamUseCase, prosConsUseCase, translateTextUseCase } from '@use-cases/index';
+import {
+  orthographyUseCase,
+  prosConsStreamUseCase,
+  prosConsUseCase,
+  textToAudioUseCase,
+  translateTextUseCase,
+} from '@use-cases/index';
 import { from } from 'rxjs';
 
-
-
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class OpenAiService {
+  checkOrthography(prompt: string) {
+    return from(orthographyUseCase(prompt));
+  }
 
+  checkProsCons(prompt: string) {
+    return from(prosConsUseCase(prompt));
+  }
 
+  checkProsConsStream(prompt: string, abortSignal: AbortSignal) {
+    return prosConsStreamUseCase(prompt, abortSignal);
+  }
 
-    checkOrthography(prompt: string) {
-        return from(orthographyUseCase(prompt));
-    }
+  translateText(prompt: string, lang: string) {
+    return from(translateTextUseCase(prompt, lang));
+  }
 
-
-    checkProsCons(prompt: string) {
-        return from(prosConsUseCase(prompt));
-    }
-
-    checkProsConsStream(prompt: string, abortSignal: AbortSignal) {
-        return prosConsStreamUseCase(prompt, abortSignal);
-    }
-
-    translateText(prompt: string, lang: string) {
-        return from(translateTextUseCase(prompt, lang));
-    }
+  textToAudio(prompt: string, voice: string) {
+    return from(textToAudioUseCase(prompt, voice));
+  }
 }
