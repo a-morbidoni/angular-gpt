@@ -1,4 +1,3 @@
-import { OrthographyResponse, TextToAudio } from '@interfaces/index';
 import { environment } from 'environments/environment';
 
 interface TextToAduioUseCaseResponse {
